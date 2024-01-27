@@ -1,20 +1,19 @@
-from concurrent.futures import ThreadPoolExecutor, Future
+from threading import Thread
 import time
 
 
 class fpsCounter:
     fps: int
     frames: int
-    CounterPool: ThreadPoolExecutor
-    Counter: Future
+    Counter: Thread
     doCount: bool
 
     def __init__(self):
         self.doCount = True
         self.fps = 0
         self.frames = 0
-        self.CounterPool = ThreadPoolExecutor(max_workers=1)
-        self.Counter = self.CounterPool.submit(self.count)
+        self.Counter = Thread(target=self.count, name="FPS Counter")
+        self.Counter.start()
 
     def count(self):
         while self.doCount:
@@ -28,12 +27,12 @@ class fpsCounter:
     def getFPS(self):
         return self.fps
 
-    def stop(self):
+    def _stop(self):
         self.doCount = False
-        self.CounterPool.shutdown()
+        self.Counter.join(1)
 
     def __exit__(self):
-        self.stop()
+        self._stop()
 
     def __del__(self):
-        self.stop()
+        self._stop()
