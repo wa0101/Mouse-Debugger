@@ -1,25 +1,25 @@
-import Debugger
-import printer
-import performance
-
 import colorama
-import time
+from multiprocessing import freeze_support
+import Debugger
+import performance
+import printer
 
-printTool = printer.printer()
-fpsCounter = performance.fpsCounter()
 WINDOW_SWITCH_DELAY = 0.5
+ALLOW_LAZY_COMPUTE = True
+
 
 if __name__ == "__main__":
+    debugUpdater = Debugger.debugUpdater(WINDOW_SWITCH_DELAY, ALLOW_LAZY_COMPUTE)
+    fpsCounter = performance.fpsCounter()
+    printTool = printer.printer()
+
+    freeze_support()
     colorama.init()
-    prev_mouse_pos = None
-    prev_time = None
-    prev_speed = 0
-    prev_window_title = ""
 
     while True:
         printTool.clear()
-        printTool.join(f"FPS: {fpsCounter.getFPS()}")
-        prev_mouse_pos, prev_time, prev_speed, prev_window_title = Debugger.print_debug_info(prev_mouse_pos, prev_time, prev_speed, prev_window_title, printTool)
+        printTool.join(f"FPS: {fpsCounter.fps}      ")
+        debugUpdater.print_debug_info(printTool)
         fpsCounter.update()
         printTool.update()
-        # time.sleep(0.5)
+        debugUpdater.update()
