@@ -3,6 +3,8 @@ from multiprocessing import freeze_support
 import Debugger
 import performance
 import printer
+from lang import lang
+import os
 
 WINDOW_SWITCH_DELAY = 0.5
 ALLOW_LAZY_COMPUTE = True
@@ -13,6 +15,7 @@ if __name__ == "__main__":
     fpsCounter = performance.fpsCounter()
     printTool = printer.printer()
 
+    os.system(f"title {lang.title}")
     freeze_support()
     colorama.init()
 

@@ -2,6 +2,7 @@ from colorama import Fore, Style
 from multiprocessing import Process, Queue
 from concurrent.futures import ThreadPoolExecutor, Future
 from typing import Union, Any
+from lang import lang
 import win32gui
 import time
 import printer
@@ -167,32 +168,32 @@ class debugUpdater:
         Prints debug info to the console.
         :return: none
         """
-        print_tool.join(Style.BRIGHT + Fore.CYAN + f'WA Modern Console Debug Information' + Style.RESET_ALL)
-        print_tool.join(f'Mouse Position:')
+        print_tool.join(Style.BRIGHT + Fore.CYAN + f'{lang.subtitle}' + Style.RESET_ALL)
+        print_tool.join(f'{lang.mousePosition}:')
         print_tool.join(f'    X: {Fore.YELLOW}------> {self.curPos[0]}{Style.RESET_ALL}       ')
         print_tool.join(f'    Y: {Fore.YELLOW}------> {self.curPos[1]}{Style.RESET_ALL}       ')
         print_tool.join(
-            f'Mouse Color: {api.color_to_ansi(self.curColor)}'
+            f'{lang.mouseColor}: {api.color_to_ansi(self.curColor)}'
             f'RGB({self.curColor[0]}, {self.curColor[1]}, {self.curColor[2]}){Style.RESET_ALL}       ')
-        print_tool.join(f'Mouse Speed: {self.curSpeed:.2f} pixels per second                                    ')
+        print_tool.join(f'{lang.mouseSpeed}: {self.curSpeed:.2f} {lang.mouseSpeedDesc}                                ')
 
         if self.isMoved:
-            print_tool.join(f'Is Mouse Stopped: {Fore.GREEN}✅ False{Style.RESET_ALL}')
+            print_tool.join(f'{lang.isMouseStopped}: {Fore.GREEN}✅ False{Style.RESET_ALL}')
         else:
-            print_tool.join(f'Is Mouse Stopped: {Fore.RED}🛑 True{Style.RESET_ALL}  ')
+            print_tool.join(f'{lang.isMouseStopped}: {Fore.RED}🛑 True{Style.RESET_ALL}  ')
 
-        print_tool.join(f'Mouse Sensitivity: {Fore.MAGENTA}Medium{Style.RESET_ALL}')
+        print_tool.join(f'{lang.mouseSensitivity}: {Fore.MAGENTA}Medium{Style.RESET_ALL}')
 
-        print_tool.join('\nColor Intensity:')
-        print_tool.join(f'    Red Intensity: {Fore.RED}🔴 {self.curColor[0]}{Style.RESET_ALL}     ')
-        print_tool.join(f'    Green Intensity: {Fore.GREEN}🟢 {self.curColor[1]}{Style.RESET_ALL}     ')
-        print_tool.join(f'    Blue Intensity: {Fore.BLUE}🔵 {self.curColor[2]}{Style.RESET_ALL}     ')
+        print_tool.join(f'\n{lang.colorIntensity}:')
+        print_tool.join(f'    {lang.redIntensity}: {Fore.RED}🔴 {self.curColor[0]}{Style.RESET_ALL}     ')
+        print_tool.join(f'    {lang.greenIntensity}: {Fore.GREEN}🟢 {self.curColor[1]}{Style.RESET_ALL}     ')
+        print_tool.join(f'    {lang.blueIntensity}: {Fore.BLUE}🔵 {self.curColor[2]}{Style.RESET_ALL}     ')
 
-        print_tool.join('\nWindow Information:')
-        print_tool.join(f'    Window Title: {self.curWindowTitle}                                                     ')
+        print_tool.join(f'\n{lang.windowInformation}:')
+        print_tool.join(f'    {lang.windowTitle}: {self.curWindowTitle}                                                     ')
 
         if self.isWindowChanged or self.__isKeepWindowChanged:
-            print_tool.join(f'    {Fore.YELLOW}🔄 Window Changed!{Style.RESET_ALL}')
+            print_tool.join(f'    {Fore.YELLOW}🔄 {lang.windowChanged}!{Style.RESET_ALL}')
         else:
             print_tool.join(f'    {Fore.YELLOW}                   {Style.RESET_ALL}')
 

@@ -1,0 +1,20 @@
+{
+  "title": "Mouse Debugger",
+  "subtitle": "WA Modern Console Debug Information",
+  "mousePosition": "Mouse Position",
+  "mouseColor": "Mouse Color",
+  "mouseSpeed": "Mouse Speed",
+  "mouseSpeedDesc": "pixels per second",
+  "isMouseStopped": "Is Mouse Stopped",
+  "false": "False",
+  "true": "True",
+  "mouseSensitivity": "Mouse Sensitivity",
+  "medium": "Medium",
+  "colorIntensity": "Color Intensity",
+  "redIntensity": "Red Intensity",
+  "greenIntensity": "Green Intensity",
+  "blueIntensity": "Blue Intensity",
+  "windowInformation": "Window Information",
+  "windowTitle": "Window Title",
+  "windowChanged": "Window Changed"
+}
