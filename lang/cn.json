@@ -1,0 +1,20 @@
+{
+  "title": "鼠标调试器",
+  "subtitle": "WA 现代控制台 调试信息",
+  "mousePosition": "鼠标位置",
+  "mouseColor": "鼠标颜色",
+  "mouseSpeed": "鼠标速度",
+  "mouseSpeedDesc": "像素/秒",
+  "isMouseStopped": "鼠标已停止",
+  "false": "否",
+  "true": "是",
+  "mouseSensitivity": "鼠标灵敏度",
+  "medium": "中等",
+  "colorIntensity": "颜色强度",
+  "redIntensity": "红色强度",
+  "greenIntensity": "绿色强度",
+  "blueIntensity": "蓝色强度",
+  "windowInformation": "窗口信息",
+  "windowTitle": "窗口标题",
+  "windowChanged": "窗口已更替"
+}

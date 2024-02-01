@@ -1,11 +1,15 @@
-import os
+import queue
 import sys
+import threading
 
 
 class printer:
     buffer: list[str]
     oldBuffer: list[str]
     emptyBuffer: list[str]
+    _printThread: threading.Thread
+    _printQueue: queue.Queue
+    isRunning: bool
 
     def __init__(self, empty_buffer: list[str] = None):
         """
@@ -16,7 +20,11 @@ class printer:
         if empty_buffer is None:
             empty_buffer = list()
         self.emptyBuffer = empty_buffer
+        self._printThread = threading.Thread(target=self._update)
+        self._printQueue = queue.Queue(2)
+        self.isRunning = True
         self.reset()
+        self._printThread.start()
 
     def join(self, string: str):
         """
@@ -33,8 +41,15 @@ class printer:
         """
         if self.buffer == self.oldBuffer:
             return
-        sys.stdout.writelines([f"\033[{len(self.buffer) + 3}A\033[2K"] + self.buffer)
-        sys.stdout.flush()
+        if self._printQueue.full():
+            self._printQueue.get()
+        self._printQueue.put(self.buffer)
+
+    def _update(self):
+        while self.isRunning:
+            buffer = self._printQueue.get()
+            sys.stdout.writelines([f"\033[{len(buffer) + 3}A\033[2K"] + buffer)
+            sys.stdout.flush()
 
     def clear(self):
         """
@@ -51,3 +66,13 @@ class printer:
         """
         self.buffer = self.emptyBuffer.copy()
         self.oldBuffer = self.emptyBuffer.copy()
+
+    def stop(self):
+        self.isRunning = False
+        self._printThread.join()
+
+    def __exit__(self):
+        self.stop()
+
+    def __del__(self):
+        self.stop()
